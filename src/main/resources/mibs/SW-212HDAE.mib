@@ -1,0 +1,58 @@
+
+SW-2212SDAM-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+	OBJECT-TYPE, MODULE-IDENTITY, iso
+		FROM SNMPv2-SMI;
+
+sw2212sdam MODULE-IDENTITY
+	LAST-UPDATED "201811150000Z"
+	ORGANIZATION 
+		"LES"
+	CONTACT-INFO 
+		"http://les.ru"
+	DESCRIPTION 
+		"Dual-Channel DVB-ASI TS / T2-MI Stream Backup Switch"
+
+	REVISION "201811150000Z"
+	DESCRIPTION 
+		" "
+::= { les 18 }
+
+org                  OBJECT IDENTIFIER ::= { iso 3 }
+dod                  OBJECT IDENTIFIER ::= { org 6 }
+internet             OBJECT IDENTIFIER ::= { dod 1 }
+private              OBJECT IDENTIFIER ::= { internet 4 }
+enterprises          OBJECT IDENTIFIER ::= { private 1 }
+les                  OBJECT IDENTIFIER ::= { enterprises 52491 }
+
+-- management
+
+out  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		a (0),
+		b (1)
+	}
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Input  (A/B)"
+	REFERENCE 
+		" "
+	::= { sw2212sdam 1 }
+
+-- automatic
+
+auto  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		disable (0),
+		enable (1)
+	}
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Enable/disable automatic switching."
+	REFERENCE 
+		" "
+	::= { sw2212sdam 2 }
+END
