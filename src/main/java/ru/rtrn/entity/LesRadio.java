@@ -1,66 +1,51 @@
 package ru.rtrn.entity;
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
-import net.percederberg.mibble.*;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class LesRadio extends Device{
+
+public class LesRadio extends Device {
     private static final String type = "SW-212HDAE";
-    private static final String community = "private";
-    private static final File file = new File("src/main/resources/mibs/1.csv");
-    private final Mib mib;
-    private ArrayList<String> params;
-    private int port;
+    private final String community = "private";
+    //    private static final File file = new File("src/main/resources/mibs/1.csv");
+    private ArrayList<Param> params;
+    private String port = "8043";
 
-    public List<String[]> readCsv() throws IOException, CsvException {
-        CSVReader reader = new CSVReader(new FileReader(file));
-            List<String[]> list = reader.readAll();
-        return list;
+    public LesRadio() {
+        initParams();
     }
 
-    public LesRadio() throws MibLoaderException, IOException {
-        mib = loadMib(file);
-        loadParams();
-    }
-
-    public LesRadio(int port) throws MibLoaderException, IOException {
-        mib = loadMib(file);
+    public LesRadio(String port) {
+        initParams();
         this.port = port;
     }
 
     @Override
-    public Mib loadMib(File file) throws MibLoaderException, IOException {
-        MibLoader loader = new MibLoader();
-        Mib mib;
-        file = file.getAbsoluteFile();
-        try {
-            loader.addDir(file.getParentFile());
-            mib = loader.load(file);
-        } catch (MibLoaderException e) {
-            e.getLog().printTo(System.err);
-            throw e;
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
-        return mib;
-    }
-    private ArrayList<String> loadParams(){
-        params = new ArrayList<>(mib.getAllSymbols());
-        return params;
+    public String getCommunity() {
+        return community;
     }
 
     @Override
-    public String getType(){
-        return type;
+    public String getPort() {
+        return port;
     }
 
-    public ArrayList<String> getParams() {
+    public void initParams() {
+        params = new ArrayList<>();
+        params.add(new Param("Output", ".1.3.6.1.4.1.52491.18.1.0", "Select input. A=0/B=1"));
+        params.add(new Param("Automatic", ".1.3.6.1.4.1.52491.18.2.0", "Enable/disable automatic switching. Disable = 0, enable = 1"));
+    }
+
+    @Override
+    public ArrayList<Param> getParams() {
         return params;
     }
+    public Param getParamByName(String name){
+        Param param = params.get(0);
+        for (Param p:params
+        ) {if (p.getName().equals(name))
+            param = p;
+        }
+        return param;
+    }
+
 }

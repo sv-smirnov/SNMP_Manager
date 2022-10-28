@@ -7,13 +7,6 @@
     <groupId>ru.rtrn</groupId>
     <artifactId>SNMP_Manager</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <repositories>
-        <repository>
-            <id>opennms</id>
-            <name>OpenNMS</name>
-            <url>http://repo.opennms.org/maven2/</url>
-        </repository>
-    </repositories>
 
     <properties>
         <maven.compiler.source>18</maven.compiler.source>
@@ -26,19 +19,10 @@
             <version>3.8.11.1</version>
         </dependency>
         <dependency>
-            <groupId>net.percederberg.mibble</groupId>
-            <artifactId>mibble</artifactId>
-            <version>2.9.3</version>
+            <groupId>org.snmp4j</groupId>
+            <artifactId>snmp4j</artifactId>
+            <version>3.7.3</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>5.7.1</version>
-        </dependency>
-
-
-
     </dependencies>
 
 </project>
