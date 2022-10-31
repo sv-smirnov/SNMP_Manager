@@ -3,14 +3,12 @@ package ru.rtrn.ui;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
+import org.snmp4j.TransportMapping;
 import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
-import ru.rtrn.entity.Device;
-import ru.rtrn.entity.LesRadio;
-import ru.rtrn.entity.Param;
-import ru.rtrn.entity.Station;
+import ru.rtrn.entity.*;
 import ru.rtrn.repository.StationRepository;
 
 import javax.swing.*;
@@ -28,8 +26,8 @@ public class RemoteControl extends JFrame {
     private JTextField setValue;
     private JTextArea description;
     private JButton setButton;
-    private JLabel currentLabel;
-    private JLabel newLabel;
+    private JLabel getValueLabel;
+    private JLabel setValueLabel;
     private JScrollPane params;
     private JScrollPane devices;
     private JList object_list;
@@ -37,12 +35,16 @@ public class RemoteControl extends JFrame {
     private JList device_list;
     private JScrollPane objects;
     private JList param_list;
+    private JTextField port;
+    private JLabel portLabel;
     private Station selectedStation;
     private Device selectedDevice;
     private Param selectedParam;
     private String selectedStationName;
     private String selectedDeviceName;
     private String selectedParamName;
+    private String variableType;
+    private Variable var;
     StationRepository stationRepository = new StationRepository();
     DefaultListModel<String> stationDefaultListModel = new DefaultListModel<>();
     DefaultListModel<String> deviceDefaultListModel = new DefaultListModel<>();
@@ -61,6 +63,7 @@ public class RemoteControl extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 clearForm();
+                port.setText("");
                 paramsDefaultListModel.clear();
                 deviceDefaultListModel.clear();
                 selectedStationName = object_list.getSelectedValue().toString();
@@ -75,6 +78,7 @@ public class RemoteControl extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 clearForm();
+                port.setText("");
                 if (device_list.getSelectedValue() != null) {
                     selectedDeviceName = device_list.getSelectedValue().toString();
                     paramsDefaultListModel.clear();
@@ -82,11 +86,24 @@ public class RemoteControl extends JFrame {
                     if (selectedDeviceName.equals("LesRadio")) {
                         selectedDevice = new LesRadio();
                     }
-//                if (selectedDeviceName.equals("TSE800")){
-//                    selectedDevice = new TSE800();
-//                }
+                    if (selectedDeviceName.equals("Tse800")) {
+                        selectedDevice = new Tse800();
+                    }
+                    if (selectedDeviceName.equals("Sx801")){
+                        selectedDevice = new Sx801();
+                    }
+                    if (selectedDeviceName.equals("Uaxte")){
+                        selectedDevice = new Uaxte();
+                    }
+                    if (selectedDeviceName.equals("Uaxte1")){
+                        selectedDevice = new Uaxte("8047");
+                    }
+                    if (selectedDeviceName.equals("Uaxte2")){
+                        selectedDevice = new Uaxte("8048");
+                    }
                     paramsDefaultListModel.addAll(selectedDevice.getParams().stream().map(Param::getName).toList());
                     param_list.setModel(paramsDefaultListModel);
+                    port.setText(selectedDevice.getPort());
                 }
             }
         });
@@ -104,26 +121,100 @@ public class RemoteControl extends JFrame {
         getButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Snmp snmp4j = new Snmp(new DefaultUdpTransportMapping());
-                    snmp4j.listen();
-                    Address address = new UdpAddress(selectedStation.getIp() + "/" + selectedDevice.getPort());
-                    CommunityTarget target = new CommunityTarget();
-                    target.setCommunity(new OctetString(selectedDevice.getCommunity()));
-                    target.setAddress(address);
-                    target.setRetries(2);
-                    target.setVersion(SnmpConstants.version2c);
-                    PDU request = new PDU();
-                    request.setType(PDU.GET);
-                    OID oid = new OID(selectedParam.getOid());
-                    request.add(new VariableBinding(oid));
-                    PDU responsePDU = null;
-                    ResponseEvent responseEvent;
-                    responseEvent = snmp4j.send(request, target);
-                    responsePDU = responseEvent.getResponse();
-                    getValue.setText(responsePDU.getVariable(oid).toString());
-                } catch (IOException ee) {
-                    ee.printStackTrace();
+                setValue.setText("");
+                if ((selectedStation != null) && (selectedDevice != null) && (selectedParam != null)) {
+                    try {
+                        TransportMapping transport = new DefaultUdpTransportMapping();
+                        transport.listen();
+                        Address address = new UdpAddress(selectedStation.getIp() + "/" + port.getText());
+                        CommunityTarget target = new CommunityTarget();
+                        target.setCommunity(new OctetString(selectedDevice.getCommunity()));
+                        target.setAddress(address);
+                        target.setRetries(2);
+                        target.setTimeout(1000);
+                        target.setVersion(SnmpConstants.version2c);
+                        PDU request = new PDU();
+                        request.setType(PDU.GET);
+                        OID oid = new OID(selectedParam.getOid());
+                        request.add(new VariableBinding(oid));
+                        PDU responsePDU = null;
+                        ResponseEvent responseEvent;
+                        Snmp snmp = new Snmp(transport);
+                        responseEvent = snmp.send(request, target);
+                        if (responseEvent != null) {
+                            responsePDU = responseEvent.getResponse();
+                            if (responsePDU != null) {
+                                int errorStatus = responsePDU.getErrorStatus();
+                                String errorStatusText = responsePDU.getErrorStatusText();
+                                if (errorStatus == PDU.noError) {
+                                    variableType = responsePDU.getVariable(oid).getClass().getSimpleName();
+                                    getValue.setText(responsePDU.getVariable(oid).toString());
+                                } else {
+                                    getValue.setText(errorStatusText);
+                                }
+                            } else {
+                                getValue.setText("Error: Response PDU is null");
+                            }
+                        } else {
+                            getValue.setText("Error: Agent Timeout... ");
+                        }
+                        snmp.close();
+                    } catch (IOException ee) {
+                        description.setText(ee.getMessage());
+                        ee.printStackTrace();
+                    }
+                }
+            }
+        });
+        setButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!setValue.getText().equals("")&&(selectedStation != null) && (selectedDevice != null) && (selectedParam != null) && (variableType != null)) {
+                    try {
+                        TransportMapping transport = new DefaultUdpTransportMapping();
+                        transport.listen();
+                        Address address = new UdpAddress(selectedStation.getIp() + "/" + port.getText());
+                        CommunityTarget target = new CommunityTarget();
+                        target.setCommunity(new OctetString(selectedDevice.getCommunity()));
+                        target.setAddress(address);
+                        target.setRetries(2);
+                        target.setTimeout(1000);
+                        target.setVersion(SnmpConstants.version2c);
+                        PDU request = new PDU();
+                        OID oid = new OID(selectedParam.getOid());
+                        if (variableType.equals("Integer32")) {
+                            var = new Integer32(Integer.parseInt(setValue.getText()));
+                        }
+                        if (variableType.equals("OctetString")) {
+                            var = new OctetString(setValue.getText());
+                        }
+                        VariableBinding varBind = new VariableBinding(oid, var);
+                        request.add(varBind);
+                        request.setType(PDU.SET);
+                        Snmp snmp = new Snmp(transport);
+                        ResponseEvent response = snmp.set(request, target);
+                        if (response != null) {
+                            PDU responsePDU = response.getResponse();
+                            if (responsePDU != null) {
+                                int errorStatus = responsePDU.getErrorStatus();
+                                String errorStatusText = responsePDU.getErrorStatusText();
+                                if (errorStatus == PDU.noError) {
+                                    getValue.setText(responsePDU.getVariable(oid).toString());
+                                    setValue.setText("SUCCESS");
+                                } else {
+                                    setValue.setText(errorStatusText);
+                                }
+                            } else {
+                                setValue.setText("Error: Response PDU is null");
+                            }
+                        } else {
+                            setValue.setText("Error: Agent Timeout... ");
+                        }
+                        snmp.close();
+                    } catch (IOException ee) {
+                        description.setText(ee.getMessage());
+                        ee.printStackTrace();
+                    }
                 }
             }
         });

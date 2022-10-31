@@ -3,6 +3,10 @@ package ru.rtrn.entity;
 import java.util.ArrayList;
 
 public abstract class Device {
+    public Device() {
+        initParams();
+    }
+
     private ArrayList<Param> params;
 
     public abstract String getCommunity();
@@ -13,12 +17,5 @@ public abstract class Device {
 
     public abstract ArrayList<Param> getParams();
 
-    public Param getParamByName(String name){
-        Param param = params.get(0);
-        for (Param p:params
-        ) {if (p.getName().equals(name))
-            param = p;
-        }
-        return param;
-    }
+    public abstract Param getParamByName(String name);
 }
