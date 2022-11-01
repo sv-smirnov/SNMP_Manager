@@ -56,6 +56,9 @@ public class Tse800 extends Device{
         params.add(new Param("CfgNetworkMode", ".1.3.6.1.4.1.2566.127.1.2.167.212.1.2.1.3.2.1", "Network Mode.\n" +
                 "mfn(1),\n" +
                 "sfn(2)"));
+        params.add(new Param("CmdResetSumFault", ".1.3.6.1.4.1.2566.127.1.2.167.301.1.1.1.0", "Reset all faults (in all modules) of the TSE.\n" +
+                "idle(1),\n" +
+                "trigger(2)"));
     }
 
     @Override
