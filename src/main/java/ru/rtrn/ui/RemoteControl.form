@@ -3,27 +3,28 @@
   <grid id="27dc6" binding="mainWindow" layout-manager="GridLayoutManager" row-count="8" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
-      <xy x="5" y="20" width="858" height="412"/>
+      <xy x="5" y="20" width="858" height="447"/>
     </constraints>
     <properties/>
     <border type="etched"/>
     <children>
       <component id="5434c" class="javax.swing.JTextField" binding="getValue">
         <constraints>
-          <grid row="3" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
+          <grid row="3" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="9" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties>
           <editable value="false"/>
           <enabled value="true"/>
+          <font size="14" style="1"/>
           <text value=""/>
         </properties>
       </component>
       <scrollpane id="8495b" binding="devices">
         <constraints>
-          <grid row="0" column="1" row-span="8" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="150" height="-1"/>
+          <grid row="0" column="1" row-span="8" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="-1"/>
           </grid>
         </constraints>
         <properties/>
@@ -40,20 +41,27 @@
           <grid row="1" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-16732858"/>
+          <enabled value="true"/>
+          <font style="1"/>
+          <foreground color="-16777216"/>
+          <hideActionText value="false"/>
           <text value="GET"/>
         </properties>
       </component>
       <component id="3fcd" class="javax.swing.JTextField" binding="setValue">
         <constraints>
-          <grid row="6" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
+          <grid row="6" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="9" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <font size="14" style="1"/>
+        </properties>
       </component>
       <scrollpane id="92278" binding="params">
         <constraints>
-          <grid row="0" column="2" row-span="8" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="2" row-span="8" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -87,17 +95,20 @@
           <grid row="7" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-65536"/>
+          <font style="1"/>
+          <foreground color="-16777216"/>
           <text value="SET"/>
         </properties>
       </component>
       <component id="9c80f" class="javax.swing.JTextArea" binding="description">
         <constraints>
-          <grid row="4" column="3" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="4" column="3" row-span="1" col-span="2" vsize-policy="6" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="150" height="-1"/>
-            <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties>
+          <font/>
           <lineWrap value="true"/>
           <text value="Description"/>
           <wrapStyleWord value="true"/>
@@ -105,8 +116,8 @@
       </component>
       <scrollpane id="66bdc" binding="objects">
         <constraints>
-          <grid row="0" column="0" row-span="8" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="200" height="-1"/>
+          <grid row="0" column="0" row-span="8" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties/>
@@ -128,9 +139,7 @@
       </component>
       <component id="b76a7" class="javax.swing.JTextField" binding="port">
         <constraints>
-          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
+          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=""/>

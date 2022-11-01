@@ -53,7 +53,7 @@ public class RemoteControl extends JFrame {
     public RemoteControl() throws SQLException {
         this.setContentPane(mainWindow);
         this.setTitle("Remote Control");
-        this.setSize(800, 600);
+        this.setSize(1000, 600);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         stationDefaultListModel.addAll(stationRepository.getNames());
@@ -89,18 +89,40 @@ public class RemoteControl extends JFrame {
                     if (selectedDeviceName.equals("Tse800")) {
                         selectedDevice = new Tse800();
                     }
-                    if (selectedDeviceName.equals("Sx801")){
+                    if (selectedDeviceName.equals("Sx801")) {
                         selectedDevice = new Sx801();
                     }
-                    if (selectedDeviceName.equals("Uaxte")){
+                    if (selectedDeviceName.equals("Uaxte")) {
                         selectedDevice = new Uaxte();
                     }
-                    if (selectedDeviceName.equals("Uaxte1")){
+                    if (selectedDeviceName.equals("Uaxte1")) {
                         selectedDevice = new Uaxte("8047");
                     }
-                    if (selectedDeviceName.equals("Uaxte2")){
+                    if (selectedDeviceName.equals("Uaxte2")) {
                         selectedDevice = new Uaxte("8048");
                     }
+                    if (selectedDeviceName.equals("Netccu")) {
+                        selectedDevice = new Netccu();
+                    }
+                    if (selectedDeviceName.equals("Tx9")) {
+                        selectedDevice = new Tx9();
+                    }
+                    if (selectedDeviceName.equals("Vigintos")) {
+                        selectedDevice = new Vigintos();
+                    }
+                    if (selectedDeviceName.equals("Tse800B")) {
+                        selectedDevice = new Tse800("8041");
+                    }
+                    if (selectedDeviceName.equals("Sx801B")) {
+                        selectedDevice = new Sx801("8042");
+                    }
+                    if (selectedDeviceName.equals("Tse800A2")) {
+                        selectedDevice = new Tse800("8045");
+                    }
+                    if (selectedDeviceName.equals("Sx801A2")) {
+                        selectedDevice = new Sx801("8048");
+                    }
+
                     paramsDefaultListModel.addAll(selectedDevice.getParams().stream().map(Param::getName).toList());
                     param_list.setModel(paramsDefaultListModel);
                     port.setText(selectedDevice.getPort());
@@ -169,7 +191,7 @@ public class RemoteControl extends JFrame {
         setButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!setValue.getText().equals("")&&(selectedStation != null) && (selectedDevice != null) && (selectedParam != null) && (variableType != null)) {
+                if (!setValue.getText().equals("") && (selectedStation != null) && (selectedDevice != null) && (selectedParam != null) && (variableType != null)) {
                     try {
                         TransportMapping transport = new DefaultUdpTransportMapping();
                         transport.listen();

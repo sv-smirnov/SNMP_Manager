@@ -7,6 +7,14 @@ public class Sx801 extends Device{
     private final String community = "broadcast";
     private ArrayList<Param> params;
     private String port = "8046";
+    public Sx801() {
+        initParams();
+    }
+
+    public Sx801(String port) {
+        this.port = port;
+        initParams();
+    }
     @Override
     public String getCommunity() {
         return community;
@@ -26,6 +34,9 @@ public class Sx801 extends Device{
                 "This switch takes the same effect as the switch on the frontpanel of the exciter.\n" +
                 "on(1),\n" +
                 "off(2)"));
+        params.add(new Param("Restart", ".1.3.6.1.4.1.2566.127.1.2.167.1.1.3.5.1.0", "Restart the software of transmitter's control unit.\n" +
+                "idle(1),\n" +
+                "trigger(2)"));
     }
 
     @Override

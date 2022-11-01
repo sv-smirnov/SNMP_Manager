@@ -8,6 +8,14 @@ public class Tse800 extends Device{
     private ArrayList<Param> params;
     private String port = "8047";
 
+    public Tse800() {
+        initParams();
+    }
+
+    public Tse800(String port) {
+        this.port = port;
+        initParams();
+    }
     @Override
     public String getCommunity() {
         return community;

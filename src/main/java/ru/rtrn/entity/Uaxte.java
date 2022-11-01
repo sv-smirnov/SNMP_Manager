@@ -43,7 +43,7 @@ public class Uaxte extends Device{
         params.add(new Param("UaxteFtrReadiness", ".1.3.6.1.4.1.43768.3.1.1.3.2.13.2.0", "Frequency timing reference status, Readiness of the exciter..."));
         params.add(new Param("UaxteGpsGnssNumberofSatellites", ".1.3.6.1.4.1.43768.3.1.1.3.2.14.1.0", "The number of satellites detected."));
         params.add(new Param("UaxteGpsGnssActive", ".1.3.6.1.4.1.43768.3.1.1.3.2.14.8.0", "Current selection for Global Navigation Satellite System.\n" +
-                "Possible choices are Primary or Secondary." +
+                "Possible choices are Primary or Secondary.\n" +
                 "primary(1),\n" +
                 "secondary(2)"));
         params.add(new Param("UaxteGpsGnssPrimary", ".1.3.6.1.4.1.43768.3.1.1.3.2.14.9.0", "Primary Global Navigation Satellite System. Selection of U.S.\n" +
@@ -60,19 +60,23 @@ public class Uaxte extends Device{
                 "auto(2)"));
         params.add(new Param("UaxteOutputLpuForward", ".1.3.6.1.4.1.43768.3.1.1.3.2.7.1.1.0", "Forward power of the low power unit(LPU)."));
         params.add(new Param("UaxteOutputMute", ".1.3.6.1.4.1.43768.3.1.1.3.2.7.2.4.0", "Output power of the system is muted.\n" +
-                " INTEGER {muteActive(1),\n" +
+                "muteActive(1),\n" +
                 "muteInactive(2)"));
-        params.add(new Param("UaxteOcxoReferenceLossMute", ".1.3.6.1.4.1.43768.3.1.1.3.2.13.1.10.0", "noMute(1),\n" +
+        params.add(new Param("UaxteOcxoReferenceLossMute", ".1.3.6.1.4.1.43768.3.1.1.3.2.13.1.10.0", " NOTE:this only applies for DVB-T and DVB-T2\n" +
+                "noMute(1),\n" +
                 "muteImmediatly(2),\n" +
                 "guardIntervalExceeds20Percent(3),\n" +
-                "timeoutExceeded(4)" +
-                " INTEGER {muteActive(1),\n" +
-                "muteInactive(2)"));
-        params.add(new Param("UaxteInputMuteOnTsLoss", ".1.3.6.1.4.1.43768.3.1.1.3.2.5.5.0", "yes(1),\n" +
+                "timeoutExceeded(4)"));
+        params.add(new Param("UaxteInputMuteOnTsLoss", ".1.3.6.1.4.1.43768.3.1.1.3.2.5.5.0", "Mute RF when TS stream is lost \n" +
+                "yes(1),\n" +
                 "no(2)"));
-        params.add(new Param("UaxteInputActive", ".1.3.6.1.4.1.43768.3.1.1.3.2.5.2.0", " UaxteInputSelection \n" +
+        params.add(new Param("UaxteInputActive", ".1.3.6.1.4.1.43768.3.1.1.3.2.5.2.0", "Active input of the transmitter \n" +
                 "primary(1),\n" +
                 "secondary(2)"));
+        params.add(new Param("UaxteInputSwitchMode", ".1.3.6.1.4.1.43768.3.1.1.3.2.5.6.0", "Input selection mode. \n" +
+                "automatic(1),\n" +
+                "manual(2),\n" +
+                "autoReturn(3)"));
     }
 
     @Override
