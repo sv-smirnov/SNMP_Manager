@@ -41,6 +41,7 @@ public class Sx801 extends Device{
         params.add(new Param("CmdTxResetSumFault", ".1.3.6.1.4.1.2566.127.1.2.167.201.1.1.1.3.1", "Reset all faults (in all modules) of the transmitter.\n" +
                 "idle(1),\n" +
                 "trigger(2)"));
+//        params.add(new Param("Date & Time", ".1.3.6.1.4.1.2566.127.1.2.167.1.1.3.1.0", "The date and time for the transmitter."));
     }
         @Override
     public ArrayList<Param> getParams() {
