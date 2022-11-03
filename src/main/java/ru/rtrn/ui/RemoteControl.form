@@ -23,7 +23,7 @@
       </component>
       <scrollpane id="8495b" binding="devices">
         <constraints>
-          <grid row="0" column="1" row-span="8" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="1" row-span="7" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="100" height="-1"/>
           </grid>
         </constraints>
@@ -143,6 +143,14 @@
         </constraints>
         <properties>
           <text value=""/>
+        </properties>
+      </component>
+      <component id="769b3" class="javax.swing.JButton" binding="loadDeviceButton" default-binding="true">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Load device"/>
         </properties>
       </component>
     </children>

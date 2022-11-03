@@ -16,6 +16,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -37,6 +39,7 @@ public class RemoteControl extends JFrame {
     private JList param_list;
     private JTextField port;
     private JLabel portLabel;
+    private JButton loadDeviceButton;
     private Station selectedStation;
     private Device selectedDevice;
     private Param selectedParam;
@@ -56,6 +59,17 @@ public class RemoteControl extends JFrame {
         this.setSize(1000, 600);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                try {
+                    stationRepository.closeConnection();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
         stationDefaultListModel.addAll(stationRepository.getNames());
         object_list.setModel(stationDefaultListModel);
 
@@ -238,6 +252,13 @@ public class RemoteControl extends JFrame {
                         ee.printStackTrace();
                     }
                 }
+            }
+        });
+        loadDeviceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ((selectedStation != null) && (selectedDevice != null)  && (selectedDevice.getClass().getSimpleName().equals("Uaxte"))){
+                JFrame frame = new UaxteForm(selectedStation, selectedDevice, port.getText());}
             }
         });
     }

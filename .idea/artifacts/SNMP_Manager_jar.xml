@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SNMP_Manager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SNMP_Manager_jar</output-path>
+    <root id="archive" name="SNMP_Manager.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="SNMP_Manager" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/snmp4j/snmp4j/3.7.3/snmp4j-3.7.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.8.11.1/sqlite-jdbc-3.8.11.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
