@@ -128,19 +128,19 @@ public class Tse800 extends Device{
         Map<String,String> sumFault = new HashMap<>();
         sumFault.put("1", "Fault");
         sumFault.put("2", "Ok");
-        params.add(new Param("Summary fault", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.1", "TSE summary faults" +
-                "active(1),\n" +
-                "inactive(2)", sumFault));
+        params.add(new Param("Summary fault", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.1", "TSE summary faults\n" +
+                "Fault(1),\n" +
+                "Ok(2)", sumFault));
         Map<String,String> sumWarning = new HashMap<>();
         sumWarning.put("1", "Warning");
         sumWarning.put("2", "Ok");
-        params.add(new Param("Summary warning", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.2", "TSE summary warnings" +
-                "active(1),\n" +
-                "inactive(2)", sumWarning));
+        params.add(new Param("Summary warning", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.2", "TSE summary warnings\n" +
+                "Warning(1),\n" +
+                "Ok(2)", sumWarning));
         Map<String,String> rfOutput = new HashMap<>();
         rfOutput.put("1", "Ok");
         rfOutput.put("2", "Mute");
-        params.add(new Param("RF output", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.5", "TSE RF output" +
+        params.add(new Param("RF status", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.5", "TSE RF output\n" +
                 "Ok(1),\n" +
                 "Mute(2)", rfOutput));
     }
