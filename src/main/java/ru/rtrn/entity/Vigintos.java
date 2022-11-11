@@ -30,22 +30,22 @@ public class Vigintos extends Device{
     @Override
     public void initParams() {
         params = new ArrayList<>();
-        params.add(new Param("SystemRebootDefaultConfig", ".1.3.6.1.4.1.18086.3082.1.19.0", "Restore all parameters to factory default and reboot the device on the same image. \n" +
+        params.add(new Param("Reboot", ".1.3.6.1.4.1.18086.3082.1.19.0", "Restore all parameters to factory default and reboot the device on the same image. \n" +
                 "keeprunning(0),\n"+
                 "reboot(1)"));
-        params.add(new Param("InputRefSource", ".1.3.6.1.4.1.18086.3082.3.2.0", "Defines the input reference synchronisation source. \n" +
+        params.add(new Param("Reference source", ".1.3.6.1.4.1.18086.3082.3.2.0", "Defines the input reference synchronisation source. \n" +
                 "auto(0), ext(1), int(2), gps(3)"));
-        params.add(new Param("OutputMute", ".1.3.6.1.4.1.18086.3082.4.7.0", "Output mute. \n" +
+        params.add(new Param("Output mute", ".1.3.6.1.4.1.18086.3082.4.7.0", "Output mute. \n" +
                 "off(0), on(1)"));
-        params.add(new Param("Gps1PPSStatus", ".1.3.6.1.4.1.18086.3082.7.1.0", "Returns the current locking state of the GPS system. \n" +
-                "locked(0), unlocked(1)"));
-        params.add(new Param("GpsTrackedSatellites", ".1.3.6.1.4.1.18086.3082.7.3.0", "Returns the number of currently tracked satellites."));
-        params.add(new Param("InputASIAutoRoutingPolicy", ".1.3.6.1.4.1.18086.3082.3.14.0", "The policy to use for TS auto routing. \n" +
+        params.add(new Param("Reference status", ".1.3.6.1.4.1.18086.3082.7.1.0", "Returns the current locking state of the GPS system. \n" +
+                "locked(0), unlocked(1)", false));
+        params.add(new Param("Satellites in use", ".1.3.6.1.4.1.18086.3082.7.3.0", "Returns the number of currently tracked satellites.", false));
+        params.add(new Param("Input automatic", ".1.3.6.1.4.1.18086.3082.3.14.0", "The policy to use for TS auto routing. \n" +
                 "only-use-primary(0),\n"+
                 "only-use-secondary(1),\n" +
                 "use-primary-if-available(2),\n"+
                 "use-any-available(3)"));
-        params.add(new Param("ModeT2MILocalNetworkMode", ".1.3.6.1.4.1.18086.3082.2.14.0", "In Input Mode B:Effective Network Mode. \n" +
+        params.add(new Param("SFN/MFN Mode", ".1.3.6.1.4.1.18086.3082.2.14.0", "In Input Mode B:Effective Network Mode. \n" +
                 "mfn(0), sfn(1)"));
     }
 

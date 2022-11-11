@@ -9,17 +9,38 @@ public class Param {
     private String oid;
     private String decription;
     private Map<String, String> values;
+    private boolean writeable;
 
+    public Param(String name, String oid, String decription, boolean writeable) {
+        this.name = name;
+        this.oid = oid;
+        this.decription = decription;
+        this.writeable = writeable;
+    }
     public Param(String name, String oid, String decription) {
         this.name = name;
         this.oid = oid;
         this.decription = decription;
+        this.writeable = true;
+    }
+
+    public boolean isWriteable() {
+        return writeable;
+    }
+
+    public Param(String name, String oid, String decription, Map<String, String> values, boolean writeable) {
+        this.name = name;
+        this.oid = oid;
+        this.decription = decription;
+        this.values = values;
+        this.writeable = writeable;
     }
     public Param(String name, String oid, String decription, Map<String, String> values) {
         this.name = name;
         this.oid = oid;
         this.decription = decription;
         this.values = values;
+        this.writeable = true;
     }
 
     public String getName() {

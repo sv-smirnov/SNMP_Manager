@@ -38,7 +38,7 @@ public class Tse800 extends Device{
                 "gps(4),\n" +
                 "glonass(5),\n" +
                 "gpsAndGlonass(6)"));
-        params.add(new Param("Satellites Used", ".1.3.6.1.4.1.2566.127.1.2.167.102.1.3.1.1.1.2.2", "Number of satellites currently being used for position and time determination"));
+        params.add(new Param("Satellites Used", ".1.3.6.1.4.1.2566.127.1.2.167.102.1.3.1.1.1.2.2", "Number of satellites currently being used for position and time determination", false));
         Map<String,String> refCurrent = new HashMap<>();
         refCurrent.put("1", "Manual");
         refCurrent.put("2", "Ext. 5 MHz");
@@ -50,7 +50,7 @@ public class Tse800 extends Device{
                 "external5MHz(2),\n" +
                 "external10MHz(3),\n" +
                 "external1PPS(4),\n" +
-                "internalGPS(5)",refCurrent));
+                "internalGPS(5)",refCurrent, false));
         Map<String,String> refSource = new HashMap<>();
         refSource.put("1", "Manual");
         refSource.put("2", "Ext. 5 MHz");
@@ -74,7 +74,7 @@ public class Tse800 extends Device{
                 "unknown(1),\n" +
                 "inaccurate(2),\n" +
                 "good(3),\n" +
-                "standsGuardTime(4)" ,refHoldover));
+                "standsGuardTime(4)" ,refHoldover, false));
         params.add(new Param("Restart", ".1.3.6.1.4.1.2566.127.1.2.167.1.1.3.5.1.0", "Restart the software of transmitter's control unit.\n" +
                 "idle(1),\n" +
                 "trigger(2)"));
@@ -84,7 +84,7 @@ public class Tse800 extends Device{
         params.add(new Param("SFN/MFN Mode", ".1.3.6.1.4.1.2566.127.1.2.167.212.1.2.1.3.2.1", "Network Mode.\n" +
                 "mfn(1),\n" +
                 "sfn(2)", sfnMode));
-        params.add(new Param("Network Id", ".1.3.6.1.4.1.2566.127.1.2.167.212.1.4.1.5.2.1", "This ID uniquely identifies the current DVB-T2 network."));
+        params.add(new Param("Network Id", ".1.3.6.1.4.1.2566.127.1.2.167.212.1.4.1.5.2.1", "This ID uniquely identifies the current DVB-T2 network.", false));
         params.add(new Param("Reset Fault", ".1.3.6.1.4.1.2566.127.1.2.167.301.1.1.1.0", "Reset all faults (in all modules) of the TSE.\n" +
                 "idle(1),\n" +
                 "trigger(2)"));
@@ -111,7 +111,7 @@ public class Tse800 extends Device{
                 "noSignal(2),\n" +
                 "fail(3),\n" +
                 "warning(4),\n" +
-                "ok(5)\n", inputStatus1));
+                "ok(5)\n", inputStatus1, false));
         Map<String,String> inputStatus2 = new HashMap<>();
         inputStatus2.put("1", "Undefined");
         inputStatus2.put("2", "No Signal");
@@ -123,26 +123,26 @@ public class Tse800 extends Device{
                 "noSignal(2),\n" +
                 "fail(3),\n" +
                 "warning(4),\n" +
-                "ok(5)\n", inputStatus2));
+                "ok(5)\n", inputStatus2, false));
 //        params.add(new Param("Date & Time", ".1.3.6.1.4.1.2566.127.1.2.167.1.1.3.1.0", "The date and time for the transmitter."));
         Map<String,String> sumFault = new HashMap<>();
         sumFault.put("1", "Fault");
         sumFault.put("2", "Ok");
         params.add(new Param("Summary fault", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.1", "TSE summary faults\n" +
                 "Fault(1),\n" +
-                "Ok(2)", sumFault));
+                "Ok(2)", sumFault, false));
         Map<String,String> sumWarning = new HashMap<>();
         sumWarning.put("1", "Warning");
         sumWarning.put("2", "Ok");
         params.add(new Param("Summary warning", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.2", "TSE summary warnings\n" +
                 "Warning(1),\n" +
-                "Ok(2)", sumWarning));
+                "Ok(2)", sumWarning, false));
         Map<String,String> rfOutput = new HashMap<>();
         rfOutput.put("1", "Ok");
         rfOutput.put("2", "Mute");
         params.add(new Param("RF status", ".1.3.6.1.4.1.2566.127.1.2.167.301.3.1.1.5.5", "TSE RF output\n" +
                 "Ok(1),\n" +
-                "Mute(2)", rfOutput));
+                "Mute(2)", rfOutput, false));
     }
 
     @Override

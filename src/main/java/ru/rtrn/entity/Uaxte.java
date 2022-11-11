@@ -61,8 +61,8 @@ public class Uaxte extends Device{
                 "gps1PPS(2),\n" +
                 "synthesized1PPS(3),\n" +
                 "tenMHz(4)", refOutput));
-        params.add(new Param("FTR Holdover", ".1.3.6.1.4.1.43768.3.1.1.3.2.13.2.0", "Frequency timing reference status, Readiness of the exciter..."));
-        params.add(new Param("Number of Satellites", ".1.3.6.1.4.1.43768.3.1.1.3.2.14.1.0", "The number of satellites detected."));
+        params.add(new Param("FTR Holdover", ".1.3.6.1.4.1.43768.3.1.1.3.2.13.2.0", "Frequency timing reference status, Readiness of the exciter...", false));
+        params.add(new Param("Number of Satellites", ".1.3.6.1.4.1.43768.3.1.1.3.2.14.1.0", "The number of satellites detected.", false));
         Map<String,String> curGpsGnssSource = new HashMap<>();
         curGpsGnssSource.put("1", "Primary");
         curGpsGnssSource.put("2", "Secondary");
@@ -88,12 +88,12 @@ public class Uaxte extends Device{
                 "Possible choices are Auto or Manual.\n" +
                 "manual(1),\n" +
                 "auto(2)"));
-        params.add(new Param("Forward power, mW", ".1.3.6.1.4.1.43768.3.1.1.3.2.7.1.3.0", "Forward power of the system."));
-        params.add(new Param("Reflected power, mW", ".1.3.6.1.4.1.43768.3.1.1.3.2.7.1.4.0", "Reflected power of the system."));
+        params.add(new Param("Forward power, mW", ".1.3.6.1.4.1.43768.3.1.1.3.2.7.1.3.0", "Forward power of the system.", false));
+        params.add(new Param("Reflected power, mW", ".1.3.6.1.4.1.43768.3.1.1.3.2.7.1.4.0", "Reflected power of the system.", false));
         Map<String,String> outputMute = new HashMap<>();
         outputMute.put("1", "Mute");
         outputMute.put("2", "Unmute");
-        params.add(new Param("Output Mute", ".1.3.6.1.4.1.43768.3.1.1.3.2.7.2.4.0", "Output power of the system is muted.\n" +
+        params.add(new Param("Output mute", ".1.3.6.1.4.1.43768.3.1.1.3.2.7.2.4.0", "Output power of the system is muted.\n" +
                 "muteActive(1),\n" +
                 "muteInactive(2)",outputMute));
         Map<String,String> refMuteOnLoss = new HashMap<>();
@@ -135,7 +135,7 @@ public class Uaxte extends Device{
                 "ok(1),\n" +
                 "missing(2),\n" +
                 "error(3),\n" +
-                "none(4)", input1status));
+                "none(4)", input1status, false));
         Map<String,String> input2status = new HashMap<>();
         input2status.put("1", "Ok");
         input2status.put("2", "Missing");
@@ -145,7 +145,7 @@ public class Uaxte extends Device{
                 "ok(1),\n" +
                 "missing(2),\n" +
                 "error(3),\n" +
-                "none(4)", input2status));
+                "none(4)", input2status, false));
         params.add(new Param("Frequency", ".1.3.6.1.4.1.290.9.2.1.1.5.4.3.0", "Transmitter frequency."));
         Map<String,String> sfnMode = new HashMap<>();
         sfnMode.put("1", "SFN");
@@ -153,7 +153,7 @@ public class Uaxte extends Device{
         params.add(new Param("SFN/MFN Mode", ".1.3.6.1.4.1.43768.2.1.1.3.2.4.3.1.0", "SFN/MFN mode. \n" +
                 "sfn(1),\n" +
                 "mfn(2)", sfnMode));
-        params.add(new Param("Network Id", ".1.3.6.1.4.1.43768.2.1.1.3.2.4.1.1.6.1", "Uniquely identifies the current DVB network."));
+        params.add(new Param("Network Id", ".1.3.6.1.4.1.43768.2.1.1.3.2.4.1.1.6.1", "Uniquely identifies the current DVB network.", false));
     }
 
     @Override
