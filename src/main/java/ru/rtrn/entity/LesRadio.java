@@ -23,7 +23,7 @@ public class LesRadio extends Device {
 
     public void initParams() {
         params = new ArrayList<>();
-        params.add(new Param("Output", ".1.3.6.1.4.1.52491.18.1.0", "Select input.\n" +
+        params.add(new Param("Select input A/B", ".1.3.6.1.4.1.52491.18.1.0", "Select input.\n" +
                 "A=0\n" +
                 "B=1"));
         params.add(new Param("Automatic", ".1.3.6.1.4.1.52491.18.2.0", "Enable/disable automatic switching.\n" +

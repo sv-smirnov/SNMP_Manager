@@ -17,15 +17,12 @@ import java.util.ArrayList;
 
 public class Tse800Form extends JFrame {
     private JPanel tse800;
-    private JPanel input;
-    private JPanel synchronization;
-    private JPanel output;
-    private JPanel coder;
     private JTextField inputActive;
     private JTextField inputAuto;
     private JTextField inputStatus1;
     private JTextField refSource;
     private JTextField refCurrent;
+    private JTextField refStatus;
     private JTextField refHoldover;
     private JTextField sfnMode;
     private JTextField networkId;
@@ -33,7 +30,6 @@ public class Tse800Form extends JFrame {
     private JTextField sumWarning;
     private JTextField rfOutput;
     private JTextField inputStatus2;
-    private JLabel label;
     Station station;
     Device device;
     String port;
@@ -71,6 +67,7 @@ public class Tse800Form extends JFrame {
             oids.add(new OID(device.getParamByName("Input-2 status").getOid()));
             oids.add(new OID(device.getParamByName("Reference source").getOid()));
             oids.add(new OID(device.getParamByName("Reference current").getOid()));
+            oids.add(new OID(device.getParamByName("Reference status").getOid()));
             oids.add(new OID(device.getParamByName("Reference holdover").getOid()));
             oids.add(new OID(device.getParamByName("SFN/MFN Mode").getOid()));
             oids.add(new OID(device.getParamByName("Network Id").getOid()));
@@ -104,12 +101,13 @@ public class Tse800Form extends JFrame {
             inputStatus2.setText(device.getParamByName("Input-2 status").getValues().get(values.get(3)));
             refSource.setText(device.getParamByName("Reference source").getValues().get(values.get(4)));
             refCurrent.setText(device.getParamByName("Reference current").getValues().get(values.get(5)));
-            refHoldover.setText(device.getParamByName("Reference holdover").getValues().get(values.get(6)));
-            sfnMode.setText(device.getParamByName("SFN/MFN Mode").getValues().get(values.get(7)));
-            networkId.setText(values.get(8));
-            sumFault.setText(device.getParamByName("Summary fault").getValues().get(values.get(9)));
-            sumWarning.setText(device.getParamByName("Summary warning").getValues().get(values.get(10)));
-            rfOutput.setText(device.getParamByName("RF status").getValues().get(values.get(11)));
+            refStatus.setText(device.getParamByName("Reference status").getValues().get(values.get(6)));
+            refHoldover.setText(device.getParamByName("Reference holdover").getValues().get(values.get(7)));
+            sfnMode.setText(device.getParamByName("SFN/MFN Mode").getValues().get(values.get(8)));
+            networkId.setText(values.get(9));
+            sumFault.setText(device.getParamByName("Summary fault").getValues().get(values.get(10)));
+            sumWarning.setText(device.getParamByName("Summary warning").getValues().get(values.get(11)));
+            rfOutput.setText(device.getParamByName("RF status").getValues().get(values.get(12)));
             snmp.close();
         } catch (IOException ee) {
             ee.printStackTrace();

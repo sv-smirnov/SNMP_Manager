@@ -65,6 +65,14 @@ public class Tse800 extends Device{
                 "external1PPS(4),\n" +
                 "internalGPS(5),\n" +
                 "auto(6)", refSource));
+        Map<String,String> refStatus = new HashMap<>();
+        refStatus.put("1", "Fail");
+        refStatus.put("2", "Warning");
+        refStatus.put("3", "Ok");
+        params.add(new Param("Reference status", ".1.3.6.1.4.1.2566.127.1.2.167.301.1.2.1.2.0", "Shows the state of the currently used reference. \n" +
+                "fail(1),\n" +
+                "warning(2),\n" +
+                "ok(3)", refStatus, false));
         Map<String,String> refHoldover = new HashMap<>();
         refHoldover.put("1", "Unknown");
         refHoldover.put("2", "Inaccurate");
