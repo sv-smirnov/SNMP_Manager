@@ -266,6 +266,8 @@ public class RemoteControl extends JFrame {
                     JFrame frame = new Sx801Form(selectedStation, selectedDevice, port.getText());}
                 if ((selectedStation != null) && (selectedDevice != null)  && (selectedDevice.getClass().getSimpleName().equals("Netccu"))){
                     JFrame frame = new NetccuForm(selectedStation, selectedDevice, port.getText());}
+                if ((selectedStation != null) && (selectedDevice != null)  && (selectedDevice.getClass().getSimpleName().equals("Tx9"))){
+                    JFrame frame = new Tx9Form(selectedStation, selectedDevice, port.getText());}
             }
         });
     }
