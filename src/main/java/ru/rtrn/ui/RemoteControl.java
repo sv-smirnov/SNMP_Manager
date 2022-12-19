@@ -1,5 +1,6 @@
 package ru.rtrn.ui;
 
+import lombok.extern.log4j.Log4j2;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
@@ -21,7 +22,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+@Log4j2
 public class RemoteControl extends JFrame {
     private JTextField getValue;
     private JButton getButton;
@@ -207,6 +208,7 @@ public class RemoteControl extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!setValue.getText().equals("") && (selectedStation != null) && (selectedDevice != null) && (selectedParam != null) && (variableType != null)) {
+                    log.info(selectedStation.getName() + " - " + selectedDeviceName + " - " + selectedParam.getName() + " - " + setValue.getText());
                     try {
                         TransportMapping transport = new DefaultUdpTransportMapping();
                         transport.listen();
