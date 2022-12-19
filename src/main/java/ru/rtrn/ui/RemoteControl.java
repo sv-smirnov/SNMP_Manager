@@ -1,5 +1,6 @@
 package ru.rtrn.ui;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.log4j.Logger;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
@@ -22,7 +23,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+@Log4j2
 public class RemoteControl extends JFrame {
     private JTextField getValue;
     private JButton getButton;
@@ -53,7 +54,7 @@ public class RemoteControl extends JFrame {
     DefaultListModel<String> stationDefaultListModel = new DefaultListModel<>();
     DefaultListModel<String> deviceDefaultListModel = new DefaultListModel<>();
     DefaultListModel<String> paramsDefaultListModel = new DefaultListModel<>();
-    static Logger log = Logger.getLogger(RemoteControl.class.getName());
+//    static Logger log = Logger.getLogger(RemoteControl.class.getName());
 
     public RemoteControl() throws SQLException {
         this.setContentPane(mainWindow);
@@ -236,6 +237,7 @@ public class RemoteControl extends JFrame {
                         request.add(varBind);
                         request.setType(PDU.SET);
                         Snmp snmp = new Snmp(transport);
+                        log.info("GET REQUEST: " + target.getAddress() + " - " + oid);
                         ResponseEvent response = snmp.set(request, target);
                         if (response != null) {
                             PDU responsePDU = response.getResponse();
