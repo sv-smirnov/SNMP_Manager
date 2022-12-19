@@ -1,6 +1,6 @@
 package ru.rtrn.ui;
 
-import lombok.extern.log4j.Log4j2;
+import org.apache.log4j.Logger;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
@@ -22,7 +22,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@Log4j2
+
 public class RemoteControl extends JFrame {
     private JTextField getValue;
     private JButton getButton;
@@ -53,6 +53,7 @@ public class RemoteControl extends JFrame {
     DefaultListModel<String> stationDefaultListModel = new DefaultListModel<>();
     DefaultListModel<String> deviceDefaultListModel = new DefaultListModel<>();
     DefaultListModel<String> paramsDefaultListModel = new DefaultListModel<>();
+    static Logger log = Logger.getLogger(RemoteControl.class.getName());
 
     public RemoteControl() throws SQLException {
         this.setContentPane(mainWindow);
@@ -178,6 +179,7 @@ public class RemoteControl extends JFrame {
                         PDU responsePDU = null;
                         ResponseEvent responseEvent;
                         Snmp snmp = new Snmp(transport);
+                        log.info("GET REQUEST: " + target.getAddress() + " - " + oid);
                         responseEvent = snmp.send(request, target);
                         if (responseEvent != null) {
                             responsePDU = responseEvent.getResponse();
@@ -187,14 +189,18 @@ public class RemoteControl extends JFrame {
                                 if (errorStatus == PDU.noError) {
                                     variableType = responsePDU.getVariable(oid).getClass().getSimpleName();
                                     getValue.setText(responsePDU.getVariable(oid).toString());
+                                    log.info("GET RESPONSE: " + responsePDU.getVariableBindings());
                                 } else {
                                     getValue.setText(errorStatusText);
+                                    log.error("GET RESPONSE: " + errorStatusText);
                                 }
                             } else {
                                 getValue.setText("Error: Response PDU is null");
+                                log.error("GET RESPONSE: Error: Response PDU is null");
                             }
                         } else {
                             getValue.setText("Error: Agent Timeout... ");
+                            log.error("GET RESPONSE: Error: Agent Timeout... ");
                         }
                         snmp.close();
                     } catch (IOException ee) {
@@ -208,7 +214,6 @@ public class RemoteControl extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!setValue.getText().equals("") && (selectedStation != null) && (selectedDevice != null) && (selectedParam != null) && (variableType != null)) {
-                    log.info(selectedStation.getName() + " - " + selectedDeviceName + " - " + selectedParam.getName() + " - " + setValue.getText());
                     try {
                         TransportMapping transport = new DefaultUdpTransportMapping();
                         transport.listen();
