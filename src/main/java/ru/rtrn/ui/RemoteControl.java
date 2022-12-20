@@ -189,18 +189,18 @@ public class RemoteControl extends JFrame {
                                 if (errorStatus == PDU.noError) {
                                     variableType = responsePDU.getVariable(oid).getClass().getSimpleName();
                                     getValue.setText(responsePDU.getVariable(oid).toString());
-                                    log.info("GET RESPONSE: " + responsePDU.getVariableBindings());
+                                    log.info("GET RESPONSE: " + target.getAddress() + " - " + responsePDU.getVariableBindings());
                                 } else {
                                     getValue.setText(errorStatusText);
-                                    log.error("GET RESPONSE: " + errorStatusText);
+                                    log.error("GET RESPONSE: " + target.getAddress() + " - " + errorStatusText);
                                 }
                             } else {
                                 getValue.setText("Error: Response PDU is null");
-                                log.error("GET RESPONSE: Error: Response PDU is null");
+                                log.error("GET RESPONSE: " + target.getAddress() + " - " + "Response PDU is null");
                             }
                         } else {
                             getValue.setText("Error: Agent Timeout... ");
-                            log.error("GET RESPONSE: Error: Agent Timeout... ");
+                            log.error("GET RESPONSE: " + target.getAddress() + " - " + "Agent Timeout... ");
                         }
                         snmp.close();
                     } catch (IOException ee) {
